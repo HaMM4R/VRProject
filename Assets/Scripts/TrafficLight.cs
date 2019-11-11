@@ -56,7 +56,6 @@ public class TrafficLight : MonoBehaviour
     {
         if (col.gameObject.tag == "Pedestrian" && isGreen)
         {
-            Debug.Log("TESTING");
             var person = col.gameObject.GetComponent<PedestrianBehaviour>();
             navAgents.Add(person);
             person.navAgent.Stop(false);

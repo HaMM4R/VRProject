@@ -14,6 +14,7 @@ public class PedestrianBehaviour : MonoBehaviour
     void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
+        anims = GetComponent<Animator>(); 
         SetupNavPoints(); 
 
         int destination = Random.Range(0, navPoints.Count);
@@ -48,7 +49,8 @@ public class PedestrianBehaviour : MonoBehaviour
 
     void AnimationController()
     {
-        if(navAgent.velocity.magnitude <= 0.2)
+        Debug.Log(navAgent.velocity.magnitude);
+        if(navAgent.velocity.magnitude <= 0.2f)
         {
             anims.SetBool("isWalking", false);
         }
