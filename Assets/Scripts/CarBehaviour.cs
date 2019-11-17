@@ -16,7 +16,7 @@ public class CarBehaviour : NavAgent
     {
         base.FindWaypoint();
         RotateWheels();
-        DetectCar(); 
+        //DetectCar(); 
     }
 
     public override void SetupNavPoints()

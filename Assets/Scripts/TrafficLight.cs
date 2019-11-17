@@ -11,7 +11,9 @@ public class TrafficLight : MonoBehaviour
     GameObject redLight;
 
     private bool isGreen;
-    private List<PedestrianBehaviour> navAgents = new List<PedestrianBehaviour>(); 
+
+    public List<PedestrianBehaviour> pedestrianAgents = new List<PedestrianBehaviour>();
+    public List<CarBehaviour> carAgents = new List<CarBehaviour>(); 
 
     public bool IsGreen 
     {
@@ -34,6 +36,16 @@ public class TrafficLight : MonoBehaviour
     {
         greenLight.SetActive(true);
         redLight.SetActive(false);
+
+        if (carAgents != null)
+        {
+            foreach (CarBehaviour c in carAgents)
+            {
+                c.navAgent.Resume();
+            }
+
+            carAgents.Clear();
+        }
     }
 
     void SetRed()
@@ -41,24 +53,14 @@ public class TrafficLight : MonoBehaviour
         greenLight.SetActive(false);
         redLight.SetActive(true);
 
-        if (navAgents != null)
+        if (pedestrianAgents != null)
         {
-            foreach (PedestrianBehaviour c in navAgents)
+            foreach (PedestrianBehaviour c in pedestrianAgents)
             {
                 c.navAgent.Resume();
             }
 
-            navAgents.Clear();
-        }
-    }
-
-    void OnTriggerEnter(Collider col)
-    {
-        if (col.gameObject.tag == "Pedestrian" && isGreen)
-        {
-            var person = col.gameObject.GetComponent<PedestrianBehaviour>();
-            navAgents.Add(person);
-            person.navAgent.Stop(false);
+            pedestrianAgents.Clear();
         }
     }
 }
