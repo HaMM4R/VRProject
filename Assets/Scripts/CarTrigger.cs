@@ -13,15 +13,16 @@ public class CarTrigger : MonoBehaviour
 
     void OnTriggerStay(Collider col)
     {
-        if (col.gameObject.tag == "Pedestrian" || col.gameObject.tag == "Car")
+        if (col.gameObject.tag == "Pedestrian" || col.gameObject.tag == "Car" || col.gameObject.tag == "Player")
         {
-            carAgent.navAgent.Stop(false); 
+            carAgent.navAgent.Stop(false);
+            Debug.Log("TESTingwag");
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if ((other.gameObject.tag == "Pedestrian" || other.gameObject.tag == "Car") && !carAgent.stoppedLights)
+        if ((other.gameObject.tag == "Pedestrian" || other.gameObject.tag == "Car" || other.gameObject.tag == "Player") && !carAgent.stoppedLights)
         {
             Debug.Log("CARG");
             carAgent.navAgent.Resume();
