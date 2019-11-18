@@ -22,14 +22,16 @@ public class TrafficLightTrigger : MonoBehaviour
                 trafficLight.pedestrianAgents.Add(person);
                 person.navAgent.Stop(false);
             }
-
-            person.crossing = false; 
         }
 
-        if(col.gameObject.tag == "Pedestrian" && !trafficLight.IsGreen)
+        if(col.gameObject.tag == "Pedestrian")
         {
             var person = col.gameObject.GetComponent<PedestrianBehaviour>();
-            person.crossing = true; 
+            if (person.crossing)
+                person.crossing = false;
+            else
+                person.crossing = true; 
+            Debug.Log(person.crossing);
         }
 
         if (col.gameObject.tag == "Car" && !trafficLight.IsGreen)
@@ -37,6 +39,7 @@ public class TrafficLightTrigger : MonoBehaviour
             Debug.Log("TESTING");
             var car = col.gameObject.GetComponent<CarBehaviour>();
             trafficLight.carAgents.Add(car);
+            car.stoppedLights = true; 
             car.navAgent.Stop(false);
         }
     }

@@ -17,13 +17,16 @@ public class PedestrianBehaviour : MonoBehaviour
     Transform neckBone;
     [SerializeField]
     Transform lookAt;
+
+    float lookTimer;
+    float lookHolder; 
+
     void Start()
     {
         crossing = false; 
         navAgent = GetComponent<NavMeshAgent>();
         anims = GetComponent<Animator>(); 
         SetupNavPoints();
-        StartCoroutine(Test());
 
         int destination = Random.Range(0, navPoints.Count);
         navAgent.SetDestination(navPoints[destination].position);
@@ -32,7 +35,6 @@ public class PedestrianBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AdjustLook();
         CheckDistance();
         AnimationController(); 
     }
@@ -65,10 +67,12 @@ public class PedestrianBehaviour : MonoBehaviour
     {
         if(navAgent.velocity.magnitude <= 0.2f)
         {
+            anims.speed = 1;
             anims.SetBool("isWalking", false);
         }
         else
         {
+            anims.speed = (navAgent.velocity.magnitude / 2);
             anims.SetBool("isWalking", true);
         }
     }
@@ -76,11 +80,6 @@ public class PedestrianBehaviour : MonoBehaviour
     void NeckController()
     {
         neckBone.LookAt(lookAt);
-    }
-
-    void AdjustLook()
-    {
-        lookAt.Translate(Vector3.left * Time.deltaTime);
     }
 
     Transform GetNextWaypoint(int waypoint)
@@ -99,11 +98,5 @@ public class PedestrianBehaviour : MonoBehaviour
         }
 
         return navPoints[nextWaypoint]; 
-    }
-
-    IEnumerator Test()
-    {
-        yield return new WaitForSeconds(2);
-        AdjustLook(); 
     }
 }

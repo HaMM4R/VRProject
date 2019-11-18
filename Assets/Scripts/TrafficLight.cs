@@ -42,6 +42,7 @@ public class TrafficLight : MonoBehaviour
             foreach (CarBehaviour c in carAgents)
             {
                 c.navAgent.Resume();
+                c.stoppedLights = false; 
             }
 
             carAgents.Clear();
