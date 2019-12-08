@@ -8,6 +8,9 @@ public class PedestrianBehaviour : MonoBehaviour
     public List<Transform> navPoints = new List<Transform>();
     public NavMeshAgent navAgent;
 
+    AudioSource audio;
+    public List<AudioClip> sounds = new List<AudioClip>(); 
+
     [SerializeField]
     Animator anims;
 
@@ -25,7 +28,8 @@ public class PedestrianBehaviour : MonoBehaviour
     {
         crossing = false; 
         navAgent = GetComponent<NavMeshAgent>();
-        anims = GetComponent<Animator>(); 
+        anims = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
         SetupNavPoints();
 
         int destination = Random.Range(0, navPoints.Count);
@@ -80,6 +84,12 @@ public class PedestrianBehaviour : MonoBehaviour
     void NeckController()
     {
         neckBone.LookAt(lookAt);
+    }
+
+    void PlayFootstepSound()
+    {
+        int rand = Random.Range(0, sounds.Count);
+        audio.PlayOneShot(sounds[rand]);
     }
 
     Transform GetNextWaypoint(int waypoint)
