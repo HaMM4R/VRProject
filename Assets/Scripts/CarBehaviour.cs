@@ -16,6 +16,7 @@ public class CarBehaviour : NavAgent
     {
         base.FindWaypoint();
         RotateWheels();
+        AudioAdjust(); 
         //DetectCar(); 
     }
 
@@ -37,6 +38,11 @@ public class CarBehaviour : NavAgent
         wheels[1].Rotate(0, 0, (navAgent.velocity.magnitude * Time.deltaTime) * 20);
         wheels[2].Rotate(0, 0, -((navAgent.velocity.magnitude * Time.deltaTime) * 20));
         wheels[3].Rotate(0, 0, -((navAgent.velocity.magnitude * Time.deltaTime) * 20));
+    }
+
+    void AudioAdjust()
+    {
+        GetComponent<AudioSource>().pitch = Mathf.Clamp(navAgent.velocity.magnitude / navAgent.speed, 0.05f, 1); 
     }
 
     void DetectCar()

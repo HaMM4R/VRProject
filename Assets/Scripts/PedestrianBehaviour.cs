@@ -19,10 +19,12 @@ public class PedestrianBehaviour : MonoBehaviour
     [SerializeField]
     Transform neckBone;
     [SerializeField]
-    Transform lookAt;
+    public Transform lookAt;
 
     float lookTimer;
-    float lookHolder; 
+    float lookHolder;
+
+    float randStart; 
 
     void Start()
     {
@@ -32,15 +34,31 @@ public class PedestrianBehaviour : MonoBehaviour
         audio = GetComponent<AudioSource>();
         SetupNavPoints();
 
-        int destination = Random.Range(0, navPoints.Count);
-        navAgent.SetDestination(navPoints[destination].position);
+        randStart = Random.Range(0,4);
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckDistance();
-        AnimationController(); 
+        AnimationController();
+
+        if (randStart > 0)
+            StartPedestrian();
+        else
+            CheckDistance();
+    }
+
+    void StartPedestrian()
+    {
+        if (randStart > 0)
+            randStart -= Time.deltaTime; 
+
+        if(randStart <= 0)
+        {
+            int destination = Random.Range(0, navPoints.Count);
+            navAgent.SetDestination(navPoints[destination].position);
+        }
+        
     }
 
     void LateUpdate()
@@ -83,7 +101,8 @@ public class PedestrianBehaviour : MonoBehaviour
 
     void NeckController()
     {
-        neckBone.LookAt(lookAt);
+        if (lookAt != null)
+            neckBone.LookAt(lookAt);
     }
 
     void PlayFootstepSound()
