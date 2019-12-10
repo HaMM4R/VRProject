@@ -18,7 +18,8 @@ public class PedestrianBehaviour : MonoBehaviour
 
     [SerializeField]
     Transform neckBone;
-    [SerializeField]
+
+    [HideInInspector]
     public Transform lookAt;
 
     float lookTimer;

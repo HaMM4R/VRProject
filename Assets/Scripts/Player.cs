@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public OVRInput.Controller controller = OVRInput.Controller.None; 
+    public OVRInput.Controller controller = OVRInput.Controller.None;
+    public Transform look; 
     void Start()
     {
         

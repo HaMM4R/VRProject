@@ -20,18 +20,6 @@ public class CarBehaviour : NavAgent
         //DetectCar(); 
     }
 
-    public override void SetupNavPoints()
-    {
-        GameObject[] wayPointHolder = GameObject.FindGameObjectsWithTag("WaypointCars").OrderBy(go => go.name).ToArray();
-
-        for (int i = 0; i < wayPointHolder.Length; i++)
-        {
-            navPoints.Add(wayPointHolder[i].transform);
-        }
-
-        navAgent.SetDestination(navPoints[curWaypoint].position);
-    }
-
     void RotateWheels()
     {
         wheels[0].Rotate(0, 0, (navAgent.velocity.magnitude * Time.deltaTime) * 20);

@@ -13,7 +13,7 @@ public class NavAgent : MonoBehaviour
     void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
-        SetupNavPoints();
+        navAgent.SetDestination(navPoints[curWaypoint].position);
     }
 
     void Update()
@@ -21,21 +21,10 @@ public class NavAgent : MonoBehaviour
         FindWaypoint(); 
     }
 
-    public virtual void SetupNavPoints()
-    {
-        GameObject[] wayPointHolder =  GameObject.FindGameObjectsWithTag("WaypointPerson").OrderBy(go => go.name).ToArray();
-
-        for (int i = 0; i < wayPointHolder.Length; i++)
-        {
-            navPoints.Add(wayPointHolder[i].transform);
-        }
-
-        navAgent.SetDestination(navPoints[curWaypoint].position);
-    }
 
     public void FindWaypoint()
     {
-        if ((gameObject.transform.position.x == navPoints[curWaypoint].position.x) && (gameObject.transform.position.z == navPoints[curWaypoint].position.z))
+        if(navAgent.remainingDistance < 2f)
         {
             curWaypoint++;
 

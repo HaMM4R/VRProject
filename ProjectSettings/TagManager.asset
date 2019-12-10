@@ -10,6 +10,7 @@ TagManager:
   - WaypointCars
   - Car
   - Pedestrian
+  - PlayerNew
   layers:
   - Default
   - TransparentFX
