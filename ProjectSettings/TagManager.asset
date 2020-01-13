@@ -11,6 +11,7 @@ TagManager:
   - Car
   - Pedestrian
   - PlayerNew
+  - Zombie
   layers:
   - Default
   - TransparentFX

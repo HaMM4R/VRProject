@@ -7,12 +7,22 @@ public class Window : MonoBehaviour
     [SerializeField]
     List<GameObject> barriers = new List<GameObject>();
 
-    [SerializeField]
     List<Vector3> barriersPositions = new List<Vector3>();
     List<Quaternion> barriersRotations = new List<Quaternion>();
 
+    int barriersRemaining;
+
+    public bool windowClear; 
+
+    [SerializeField]
+    Transform enterPoint;
+    public Transform EnterPoint { get { return enterPoint; } }
+
     void Start()
     {
+        windowClear = false; 
+        barriersRemaining = barriers.Count - 1; 
+
         foreach(GameObject g in barriers)
         {
             barriersPositions.Add(g.transform.position);
@@ -22,38 +32,26 @@ public class Window : MonoBehaviour
         }
     }
 
-    void Update()
+    public void RemoveBarrier()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            foreach (GameObject g in barriers)
-            {
-                g.GetComponent<Rigidbody>().isKinematic = false;
-            }
-        }
-
-        if(Input.GetKey(KeyCode.W))
-        {
-            for(int i = 0; i < barriers.Count; i++)
-            {
-                var b = barriers[i].GetComponent<Rigidbody>();
-                //b.isKinematic = true;
-
-                if (b.position != barriersPositions[i])
-                {
-                    Debug.Log("FUC");
-                    Vector3.Lerp(b.position, barriersPositions[i], Time.deltaTime * 5);
-                }
-
-                if (b.rotation != barriersRotations[i])
-                    Quaternion.Lerp(b.rotation, barriersRotations[i], Time.deltaTime * 5);
-
-            }
-        }
+        barriers[barriersRemaining].GetComponent<Rigidbody>().isKinematic = false;
+        if (barriersRemaining != 0)
+            barriersRemaining--;
+        else
+            windowClear = true; 
     }
 
-    void OnTriggerEnter(Collider col)
+    public void ReplaceBarrier()
     {
+        windowClear = false; 
+        barriers[barriersRemaining].GetComponent<Rigidbody>().isKinematic = true;
 
+        barriers[barriersRemaining].transform.position = barriersPositions[barriersRemaining];
+        barriers[barriersRemaining].transform.rotation = barriersRotations[barriersRemaining];
+
+        if (barriersRemaining < barriers.Count - 1)
+        {
+            barriersRemaining++;
+        }
     }
 }
