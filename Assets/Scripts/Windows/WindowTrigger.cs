@@ -13,6 +13,11 @@ public class WindowTrigger : MonoBehaviour
             Debug.Log("Test1");
             other.GetComponent<ZombieManager>().ZBarrier.InWindow(win);
         }
+
+        if(other.gameObject.tag == "Player")
+        {
+            other.GetComponent<PlayerManager>().PBarrier.InWindow(win);
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -20,6 +25,11 @@ public class WindowTrigger : MonoBehaviour
         if (other.gameObject.tag == "Zombie")
         {
             other.GetComponent<ZombieManager>().ZBarrier.OutWindow();
+        }
+
+        if (other.gameObject.tag == "Player")
+        {
+            other.GetComponent<PlayerManager>().PBarrier.OutWindow();
         }
     }
 }

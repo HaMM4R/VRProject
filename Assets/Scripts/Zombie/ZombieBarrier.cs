@@ -26,6 +26,7 @@ public class ZombieBarrier : MonoBehaviour
         Enter(); 
     }
 
+    //REFACTOR FOR INHERITENCE FOR ZOMBIE AND PLAYER
     public void InWindow(Window w)
     {
         Debug.Log("Test2");
@@ -53,14 +54,18 @@ public class ZombieBarrier : MonoBehaviour
 
     void Enter()
     {
-        if(win.windowClear)
+        if (win != null)
         {
-            if (enterTimer > 0)
-                enterTimer -= Time.deltaTime;
-            else
+            if (win.windowClear)
             {
-                manager.Inside = true; 
-                transform.position = win.EnterPoint.position;
+                if (enterTimer > 0)
+                    enterTimer -= Time.deltaTime;
+                else
+                {
+                    manager.Inside = true;
+                    transform.position = win.EnterPoint.position;
+                    win = null;
+                }
             }
         }
     }

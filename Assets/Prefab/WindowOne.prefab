@@ -292,7 +292,7 @@ MonoBehaviour:
   - {fileID: 3992628341473815733}
   - {fileID: 3992628341172420718}
   - {fileID: 3992628342051136645}
-  barriersRemaining: 0
+  windowClear: 0
   enterPoint: {fileID: 1393638300437299580}
 --- !u!1 &3992628341473815733
 GameObject:
@@ -1017,7 +1017,7 @@ GameObject:
   - component: {fileID: 6986547551551958746}
   - component: {fileID: 8294190765687804516}
   - component: {fileID: 9148885824103435086}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WindowTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class ZombieHealth : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    //SET DYNAMICALLY THROUGH SPAWNER FOR HIGHER ROUNDS
+    float health = 100; 
+
+    public void TakeDamage(float dmg)
     {
-        
+        health -= dmg;
+        if (health < 0)
+            Die(); 
     }
 
-    // Update is called once per frame
-    void Update()
+    //CLEAR ZOMBIE OUT OF GAME MANAGER COLLECTION
+    //CREATE POOLING SYSTEM
+    void Die()
     {
-        
+        Destroy(gameObject);
     }
 }
