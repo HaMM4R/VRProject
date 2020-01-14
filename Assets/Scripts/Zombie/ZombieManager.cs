@@ -29,6 +29,7 @@ public class ZombieManager : MonoBehaviour
         zAttack = GetComponent<ZombieAttack>();
 
         zMove.SetupMovement(enterWindow);
+        zAttack.GetPlayer(gameManager.player);
     }
 
     void SetupTarget()
