@@ -18,7 +18,8 @@ public class WeaponBase : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        //REPLACE WITH INPUT MANAGER
+        if (Input.GetMouseButtonDown(0) || (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.1f))
             Fire(); 
     }
 

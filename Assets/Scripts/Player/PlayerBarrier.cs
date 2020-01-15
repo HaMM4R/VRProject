@@ -9,7 +9,7 @@ public class PlayerBarrier : MonoBehaviour
     //REFACTOR FOR INPUT CONTROLLER
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && win != null)
+        if ((Input.GetKeyDown(KeyCode.E) || (OVRInput.Get(OVRInput.Button.One))) && win != null)
             win.ReplaceBarrier(); 
     }
 
