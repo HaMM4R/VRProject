@@ -14,13 +14,29 @@ public class WeaponBase : MonoBehaviour
     Transform fireOrigin;
 
     [SerializeField]
-    GameObject debugHit; 
+    GameObject debugHit;
+
+    //REREWRITE
+    float fireTimer = 0.08f;
+    float fireTimerHolder;
+
+    void Start()
+    {
+        fireTimerHolder = fireTimer; 
+    }
 
     void Update()
     {
-        //REPLACE WITH INPUT MANAGER
-        if (Input.GetMouseButtonDown(0) || (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.1f))
-            Fire(); 
+        if (fireTimer > 0)
+            fireTimer -= Time.deltaTime; 
+        else
+        {
+            fireTimer = fireTimerHolder;
+            //REPLACE WITH INPUT MANAGER
+            if (Input.GetMouseButtonDown(0) || (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.1f))
+                Fire();
+        }
+            
     }
 
     void Fire()

@@ -12,10 +12,10 @@ public class ZombieSpawn : MonoBehaviour
     [SerializeField]
     GameObject zombie;
 
-    int numToSpawn = 3;
+    int numToSpawn = 4;
     int numberOfSpawnWaves = 0;
 
-    float spawnTimer = 13;
+    float spawnTimer = 14;
     float spawnTimerHolder; 
 
     void Start()
@@ -47,7 +47,7 @@ public class ZombieSpawn : MonoBehaviour
             numberOfSpawnWaves++; 
 
             //Increases number to spawn every 5 spawn sets
-            if(numberOfSpawnWaves % 5 == 0)
+            if(numberOfSpawnWaves % 4 == 0)
             {
                 numToSpawn++; 
             }
