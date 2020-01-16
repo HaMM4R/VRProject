@@ -62,8 +62,7 @@ public class ZombieBarrier : MonoBehaviour
                     enterTimer -= Time.deltaTime;
                 else
                 {
-                    manager.Inside = true;
-                    transform.position = win.EnterPoint.position;
+                    manager.SetupTarget(win.EnterPoint);
                     win = null;
                 }
             }

@@ -18,7 +18,7 @@ public class ZombieManager : MonoBehaviour
     public GameManager GManager { set { gameManager = value; } get { return gameManager; } }
 
     bool inside; 
-    public bool Inside { set { inside = value; SetupTarget(); } get { return inside; } }
+    public bool Inside { set { inside = value;  } get { return inside; } }
 
     void Start()
     {
@@ -32,9 +32,16 @@ public class ZombieManager : MonoBehaviour
         zAttack.GetPlayer(gameManager.player);
     }
 
-    void SetupTarget()
+    private void Update()
     {
+    }
+
+    public void SetupTarget(Transform warpPos)
+    {
+        Debug.Log("TESTING");
+        zMove.navAgent.Warp(warpPos.position);
         GameObject target = gameManager.Player;
+        inside = true;
         zMove.SetTarget = target;
     }
 }

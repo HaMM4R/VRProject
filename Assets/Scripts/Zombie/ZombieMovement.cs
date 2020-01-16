@@ -7,7 +7,7 @@ public class ZombieMovement : MonoBehaviour
 {
     private ZombieManager manager;
     private GameObject target; 
-    NavMeshAgent navAgent;
+    public NavMeshAgent navAgent;
 
     public GameObject SetTarget { set { target = value; } }
 
@@ -20,11 +20,8 @@ public class ZombieMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-            debugTrack = true; 
         if (target != null)
-            if(!debugTrack)
-                TrackTarget(); 
+            TrackTarget(); 
     }
 
     public void SetupMovement(Transform window)

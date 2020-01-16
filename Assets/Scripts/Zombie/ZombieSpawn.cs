@@ -12,9 +12,11 @@ public class ZombieSpawn : MonoBehaviour
     [SerializeField]
     GameObject zombie;
 
+    [SerializeField]
     int numToSpawn = 4;
     int numberOfSpawnWaves = 0;
 
+    [SerializeField]
     float spawnTimer = 14;
     float spawnTimerHolder; 
 

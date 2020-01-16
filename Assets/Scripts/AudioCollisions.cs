@@ -14,17 +14,5 @@ public class AudioCollisions : MonoBehaviour
 		source = GetComponent<AudioSource>();
 	}
 
-
-	void OnTriggerEnter(Collision collision)
-	{
-		if(!hasPlayed)
-			source.PlayOneShot(sounds[Random.Range(0, sounds.Count)]);
-		
-		hasPlayed = true;
-	}
-
-	void OnTriggerExit(Collision collision)
-	{
-		hasPlayed = false; 
-	}
+    
 }
