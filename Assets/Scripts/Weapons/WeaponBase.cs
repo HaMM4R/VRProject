@@ -38,6 +38,21 @@ public class WeaponBase : MonoBehaviour
     float fireTimer = 0.08f;
     float fireTimerHolder;
 
+    [SerializeField]
+    Transform recoilHolder;
+
+    [SerializeField]
+    Vector3 kickMove;
+
+    [SerializeField]
+    Vector3 kickRot;
+
+    Vector3 kickHolder1;
+    Vector3 kickHolder2;
+    Vector3 kickHolder3;
+    Vector3 kickHolder4; 
+
+
     void Start()
     {
         fireTimerHolder = fireTimer; 
@@ -45,6 +60,8 @@ public class WeaponBase : MonoBehaviour
 
     void Update()
     {
+        Recoil(); 
+
         bool bDown = OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger);
         if (bDown || Input.GetMouseButtonDown(0))
             Fire(); 
@@ -68,11 +85,14 @@ public class WeaponBase : MonoBehaviour
         Instantiate(muzzle, muzzleFlashTransform.position, muzzleFlashTransform.rotation);
         source.PlayOneShot(shoot);
 
+        kickHolder1 += kickRot;
+        kickHolder3 += kickMove; 
+
         if(Physics.Raycast(fireOrigin.position, transform.forward, out hit, 1000))
         {
             if(hit.transform.gameObject.tag == "Zombie")
             {
-                hit.transform.gameObject.GetComponent<ZombieHealth>().TakeDamage(dmg);
+                hit.transform.gameObject.GetComponentInParent<ZombieHealth>().TakeDamage(dmg);
                 Instantiate(hitEffectZombie, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
             }
             else
@@ -80,5 +100,16 @@ public class WeaponBase : MonoBehaviour
                 Instantiate(hitEffectWall, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
             }
         }
+    }
+
+    void Recoil()
+    {
+        kickHolder1 = Vector3.Lerp(kickHolder1, Vector3.zero, 0.1f);
+        kickHolder2 = Vector3.Lerp(kickHolder2, kickHolder1, 0.1f);
+        kickHolder3 = Vector3.Lerp(kickHolder3, Vector3.zero, 0.1f);
+        kickHolder4 = Vector3.Lerp(kickHolder4, kickHolder3, 0.1f);
+
+        recoilHolder.localEulerAngles = kickHolder1 * 40f;
+        recoilHolder.localPosition = kickHolder3; 
     }
 }

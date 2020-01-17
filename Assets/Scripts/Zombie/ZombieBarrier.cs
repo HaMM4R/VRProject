@@ -14,9 +14,12 @@ public class ZombieBarrier : MonoBehaviour
 
     float enterTimer = 2;
 
+    Rigidbody rigidB;
+
     private void Start()
     {
         manager = GetComponent<ZombieManager>();
+        rigidB = GetComponent<Rigidbody>();
         removeTimer = removeTimerHolder; 
     }
 
@@ -30,6 +33,8 @@ public class ZombieBarrier : MonoBehaviour
     public void InWindow(Window w)
     {
         Debug.Log("Test2");
+        manager.SendAnimChange(AnimType.attack);
+        rigidB.constraints = RigidbodyConstraints.FreezeAll; 
         win = w; 
     }
 
@@ -48,8 +53,16 @@ public class ZombieBarrier : MonoBehaviour
             {
                 win.RemoveBarrier(); 
                 removeTimer = removeTimerHolder;
+                manager.SendAnimChange(AnimType.attack);
+                manager.ZombieAttackSounds();
             }
         }
+    }
+
+    void SetupConstraints()
+    {
+        rigidB.constraints = RigidbodyConstraints.None;
+        rigidB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY; 
     }
 
     void Enter()
@@ -62,7 +75,9 @@ public class ZombieBarrier : MonoBehaviour
                     enterTimer -= Time.deltaTime;
                 else
                 {
+                    SetupConstraints(); 
                     manager.SetupTarget(win.EnterPoint);
+                    manager.SendAnimChange(AnimType.run);
                     win = null;
                 }
             }

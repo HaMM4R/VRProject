@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class ZombieHealth : MonoBehaviour
 {
+    ZombieManager manager; 
     //SET DYNAMICALLY THROUGH SPAWNER FOR HIGHER ROUNDS
-    float health = 100; 
+    float health = 100;
+
+    private void Start()
+    {
+        manager = GetComponent<ZombieManager>();
+    }
 
     public void TakeDamage(float dmg)
     {
@@ -18,6 +24,6 @@ public class ZombieHealth : MonoBehaviour
     //CREATE POOLING SYSTEM
     void Die()
     {
-        Destroy(gameObject);
+        manager.Die(); 
     }
 }
