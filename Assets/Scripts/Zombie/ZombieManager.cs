@@ -21,7 +21,7 @@ public class ZombieManager : MonoBehaviour
     bool inside; 
     public bool Inside { set { inside = value;  } get { return inside; } }
 
-    void Start()
+    public void SetupZombie(float health, float speed, Transform window)
     {
         zHealth = GetComponent<ZombieHealth>();
         zMove = GetComponent<ZombieMovement>();
@@ -30,8 +30,10 @@ public class ZombieManager : MonoBehaviour
         zAttack = GetComponent<ZombieAttack>();
         zAudio = GetComponent<ZombieAudio>();
 
-        zMove.SetupMovement(enterWindow);
-        zAttack.GetPlayer(gameManager.player);
+        zHealth.Health = health;
+        enterWindow = window;
+        zMove.SetupMovement(enterWindow, speed);
+        zAttack.GetPlayer(GameManager.instance.player);
         SendAnimChange(AnimType.run);
     }
     
@@ -39,7 +41,7 @@ public class ZombieManager : MonoBehaviour
     {
         Debug.Log("TESTING");
         zMove.navAgent.Warp(warpPos.position);
-        GameObject target = gameManager.Player;
+        GameObject target = GameManager.instance.player;
         inside = true;
         zMove.SetTarget = target;
     }
@@ -56,15 +58,10 @@ public class ZombieManager : MonoBehaviour
         zAudio.PlayAttack(); 
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-            Die(); 
-    }
-
     public void Die()
     {
         zAnim.RecieveAnimChange(AnimType.die);
+        GameManager.instance.ZombieKilled(gameObject);
         zMove.navAgent.Stop();
         zMove.enabled = false;
         zAudio.enabled = false;

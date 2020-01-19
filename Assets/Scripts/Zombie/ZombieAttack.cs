@@ -27,7 +27,7 @@ public class ZombieAttack : MonoBehaviour
     void DetectPlayer()
     {
         //PERFORM CHECK TO SEE IF WITHIN A CERTAIN FRAMEWORK
-        if(Vector3.Distance(transform.position, player.transform.position) < 0.5f)
+        /*if(Vector3.Distance(transform.position, player.transform.position) < 0.5f)
         {
             if (attackTimer > 0)
                 attackTimer -= Time.deltaTime;
@@ -36,7 +36,7 @@ public class ZombieAttack : MonoBehaviour
                 Attack(); 
                 attackTimer = attackTimerHolder;
             }
-        }
+        }*/
     }
 
     void Attack()

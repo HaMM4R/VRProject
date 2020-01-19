@@ -24,11 +24,12 @@ public class ZombieMovement : MonoBehaviour
             TrackTarget(); 
     }
 
-    public void SetupMovement(Transform window)
+    public void SetupMovement(Transform window, float moveSpeed)
     {
         Debug.Log(window);
         navAgent = GetComponent<NavMeshAgent>();
         navAgent.SetDestination(window.position);
+        navAgent.speed = moveSpeed;
     }
 
     private void TrackTarget()

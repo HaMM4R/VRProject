@@ -7,6 +7,7 @@ public class ZombieHealth : MonoBehaviour
     ZombieManager manager; 
     //SET DYNAMICALLY THROUGH SPAWNER FOR HIGHER ROUNDS
     float health = 100;
+    public float Health { set { health = value; } }
 
     private void Start()
     {
