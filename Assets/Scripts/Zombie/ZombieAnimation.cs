@@ -29,10 +29,17 @@ public class ZombieAnimation : MonoBehaviour
 
     void Walk()
     {
-        int choice = Random.Range(0, 1);
+        if (GameManager.instance.Round < 5)
+        {
+            int choice = Random.Range(0, 1);
 
-        string walk = choice == 0 ? "isWalking1" : "isWalking2";
-        animator.SetBool(walk, true);
+            string walk = choice == 0 ? "isWalking1" : "isWalking2";
+            animator.SetBool(walk, true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", true);
+        }
         animator.SetBool("isAttacking", false);
     }
 
@@ -79,4 +86,10 @@ public enum AnimType
     idle,
     attack,
     die
+}
+
+public enum ZombieType
+{
+    walking,
+    running
 }

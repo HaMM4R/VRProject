@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     int curSpawnedRoundZombies;
     bool roundEnded; 
 
+    public int Round { get { return round; } }
+
     void Start()
     {
         if (_instance != null && _instance != this)

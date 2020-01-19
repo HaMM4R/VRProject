@@ -34,7 +34,7 @@ public class ZombieManager : MonoBehaviour
         enterWindow = window;
         zMove.SetupMovement(enterWindow, speed);
         zAttack.GetPlayer(GameManager.instance.player);
-        SendAnimChange(AnimType.run);
+        SendAnimChange(AnimType.walk);
     }
     
     public void SetupTarget(Transform warpPos)

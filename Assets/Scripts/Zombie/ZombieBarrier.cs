@@ -77,7 +77,7 @@ public class ZombieBarrier : MonoBehaviour
                 {
                     SetupConstraints(); 
                     manager.SetupTarget(win.EnterPoint);
-                    manager.SendAnimChange(AnimType.run);
+                    manager.SendAnimChange(AnimType.walk);
                     win = null;
                 }
             }
