@@ -8,16 +8,20 @@ public class ZombieHealth : MonoBehaviour
     //SET DYNAMICALLY THROUGH SPAWNER FOR HIGHER ROUNDS
     float health = 100;
     public float Health { set { health = value; } }
+    bool dead; 
 
     private void Start()
     {
         manager = GetComponent<ZombieManager>();
+        dead = false; 
     }
 
     public void TakeDamage(float dmg)
     {
+        //Refactor
+        GameManager.instance.playerPoints += 10;
         health -= dmg;
-        if (health < 0)
+        if (health < 0 && !dead)
             Die(); 
     }
 
@@ -25,6 +29,7 @@ public class ZombieHealth : MonoBehaviour
     //CREATE POOLING SYSTEM
     void Die()
     {
+        dead = true; 
         manager.Die(); 
     }
 }

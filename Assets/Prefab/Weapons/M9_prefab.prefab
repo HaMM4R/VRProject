@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d631bf4d099085a49ba60523288aee60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 25
+  dmg: 70
   magAmmo: 0
   reserveAmmo: 0
   fireOrigin: {fileID: 4429277665010510869}
@@ -433,7 +433,7 @@ MonoBehaviour:
     type: 3}
   recoilHolder: {fileID: 0}
   kickMove: {x: 0.05, y: 0.02, z: 0.02}
-  kickRot: {x: -1, y: 0.1, z: 0.1}
+  kickRot: {x: -0.06, y: 0.07, z: 0.1}
 --- !u!1 &4427962695320508321
 GameObject:
   m_ObjectHideFlags: 0

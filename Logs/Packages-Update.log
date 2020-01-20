@@ -68,3 +68,13 @@ The following packages were added:
   com.unity.package-manager-ui@2.2.0
   com.unity.postprocessing@2.1.4
   com.unity.progrids@3.0.3-preview.4
+
+=== Mon Jan 20 13:42:44 2020
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.postprocessing from version 2.1.4 to 2.2.2
+The following packages were removed:
+  com.unity.package-manager-ui@2.2.0

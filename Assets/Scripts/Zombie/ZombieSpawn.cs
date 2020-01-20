@@ -14,7 +14,7 @@ public class ZombieSpawn : MonoBehaviour
     int numberOfSpawnWaves = 0;
 
     [SerializeField]
-    float spawnTimer = 1.5f;
+    float spawnTimer = 6.2f;
     float spawnTimerHolder;
 
     int spawnQueue = 0;

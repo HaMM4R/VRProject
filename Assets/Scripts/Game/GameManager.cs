@@ -15,25 +15,28 @@ public class GameManager : MonoBehaviour
     public GameObject Player { get { return player; } }
 
     //Round Information
-    int round;
+    public int round;
     int maxZombiesInWorld = 15;
     float zombieHealth = 150;
     float zombieHealthIncrease = 100;
 
     float zombieSpeed = 1;
-    float zombieSpeedMultiplier = 1.2f; 
+    float zombieSpeedMultiplier = 1.12f;
 
-    int numOfZombies = 6;
+    public int numOfZombies = 6;
     int numToIncrease = 3;
-    int zombiesKilledInRound; 
+    public int zombiesKilledInRound; 
 
-    float roundStartTimer = 12f;
+    float roundStartTimer = 16f;
     float roundStartHolder;
 
-    int curSpawnedRoundZombies;
+    public int curSpawnedRoundZombies;
     bool roundEnded; 
 
     public int Round { get { return round; } }
+
+    //RefactorLater?
+    public int playerPoints; 
 
     void Start()
     {
@@ -72,6 +75,7 @@ public class GameManager : MonoBehaviour
 
     void StartRound()
     {
+        round++;
         int numToSpawn = numOfZombies / 2;
         numToSpawn = numToSpawn > maxZombiesInWorld ? maxZombiesInWorld : numOfZombies / 2;
 
@@ -88,6 +92,7 @@ public class GameManager : MonoBehaviour
             curSpawnedRoundZombies++;
         }
 
+        playerPoints += 15; 
         zombiesKilledInRound++;
         zombies.Remove(zombieKilled);
         if (zombiesKilledInRound == numOfZombies)
@@ -103,9 +108,7 @@ public class GameManager : MonoBehaviour
         numOfZombies += numToIncrease;
         zombieHealth += zombieHealthIncrease;
         zombieSpeed *= zombieSpeedMultiplier;
-
-        round++; 
-
+        
         roundEnded = true; 
     }
 }
