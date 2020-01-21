@@ -16,5 +16,16 @@ public class WeaponPickup : MonoBehaviour
             if (GameManager.instance.playerPoints >= weapon.cost)
                 weaponManager.ChangeWeapon(weapon.id, weapon.cost);
         }
+
+        if(otherCollider.gameObject.tag == "AmmoBox")
+        {
+            weaponManager.GetMag();
+        }
+
+        if (otherCollider.gameObject.tag == "ReloadPoint")
+        {
+            weaponManager.LoadWeapon();
+            GameManager.instance.playerPoints += 50;
+        }
     }
 }

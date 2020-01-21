@@ -13,6 +13,8 @@ public class WeaponBase : MonoBehaviour
     [SerializeField]
     Transform fireOrigin;
 
+    int curMagAmmo; 
+
     [SerializeField]
     Transform muzzleFlashTransform;
     [SerializeField]
@@ -55,7 +57,8 @@ public class WeaponBase : MonoBehaviour
 
     void Start()
     {
-        fireTimerHolder = fireTimer; 
+        fireTimerHolder = fireTimer;
+        curMagAmmo = magAmmo; 
     }
 
     void Update()
@@ -65,41 +68,39 @@ public class WeaponBase : MonoBehaviour
         bool bDown = OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger);
         if (bDown || Input.GetMouseButtonDown(0))
             Fire(); 
-
-        /*if (fireTimer > 0)
-            fireTimer -= Time.deltaTime; 
-        else
-        {
-            fireTimer = fireTimerHolder;
-            //REPLACE WITH INPUT MANAGER
-            if (Input.GetMouseButtonDown(0) || (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.1f))
-                Fire();
-        }*/
-
     }
 
     void Fire()
     {
-        RaycastHit hit;
-
-        Instantiate(muzzle, muzzleFlashTransform.position, muzzleFlashTransform.rotation);
-        source.PlayOneShot(shoot);
-
-        kickHolder1 += kickRot;
-        kickHolder3 += kickMove; 
-
-        if(Physics.Raycast(fireOrigin.position, transform.forward, out hit, 1000))
+        if (curMagAmmo > 0)
         {
-            if(hit.transform.gameObject.tag == "Zombie")
+            RaycastHit hit;
+            curMagAmmo--; 
+            Instantiate(muzzle, muzzleFlashTransform.position, muzzleFlashTransform.rotation);
+            source.PlayOneShot(shoot);
+
+            kickHolder1 += kickRot;
+            kickHolder3 += kickMove;
+
+            if (Physics.Raycast(fireOrigin.position, transform.forward, out hit, 1000))
             {
-                hit.transform.gameObject.GetComponentInParent<ZombieHealth>().TakeDamage(dmg);
-                Instantiate(hitEffectZombie, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
-            }
-            else
-            {
-                Instantiate(hitEffectWall, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                if (hit.transform.gameObject.tag == "Zombie")
+                {
+                    hit.transform.gameObject.GetComponentInParent<ZombieHealth>().TakeDamage(dmg);
+                    Instantiate(hitEffectZombie, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                }
+                else
+                {
+                    Instantiate(hitEffectWall, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                }
             }
         }
+    }
+
+    public void Reload()
+    {
+        curMagAmmo = magAmmo;
+        GameManager.instance.playerPoints += 50;
     }
 
     void Recoil()

@@ -8,6 +8,8 @@ TagManager:
   - Zombie
   - ZombieSpawner
   - WallWeapons
+  - AmmoBox
+  - ReloadPoint
   layers:
   - Default
   - TransparentFX
